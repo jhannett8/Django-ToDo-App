@@ -1,0 +1,18 @@
+{% extends "ToDo_base.html" %}
+{% load crispy_forms_tags %}
+    {% block content %}
+        <div class="content-section">
+            <form method="POST">
+                {% csrf_token %}
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4">Your Task</legend>
+                    {{ form|crispy }}
+                </fieldset>
+                <div class="form-group">
+                    <button class="btn btn-outline-info" type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+    {% endblock content %}
+
+    <!-- Have to make a directory within the template folder.  The directory will need to follow this path src\todo_app\templates\todo_app\task_model_form.html -->0    `

@@ -1,0 +1,153 @@
+
+    
+    
+
+   
+{% extends "ToDo_base.html" %} 
+
+{% block task_today %}
+<center><h2>ToDo List Home Page</h2></center> 
+    <br>
+    <br>  
+    <center><h3>Today's Task List</h3></center> 
+    {% for task in task_list %}
+      {% if task.timeframe == 'td' %}
+        {% if task.completed == 0 %}
+        <article class="media content-section">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="#">{{ request.user.username }}</a>
+              <small class="text-muted">{{ task.date }}</small>
+                <div class="buttons">
+                  <a href="{% url 'task_update' task.id %}" data-toggle="tooltip" title="Update">&#8635;</a>
+                  <a href="{% url 'task_delete' task.id %}" data-toggle="tooltip" title="Delete">&#10008;</a>
+                  <a href="{% url 'task_crossoff' task.id %}" data-toggle="tooltip" title="Complete">&#10003;</a>
+                </div>
+            </div>
+            <h2><a class="article-title" href="#">{{ task.title }}</a></h2>
+            <p class="article-content">{{ task.description }}</p>
+          </div>
+        </article>
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+{% endblock task_today %}
+
+{% block task_week %}
+<center><h3>This Week's Task List</h3></center> 
+  {% for task in task_list %}
+    {% if task.timeframe == 'wk' %} 
+      {% if task.completed == 0 %}
+      <article class="media content-section">
+        <div class="media-body">
+          <div class="article-metadata">
+            <a class="mr-2" href="#">{{ request.user.username }}</a>
+            <small class="text-muted">{{ task.date }}</small>
+              <div class="buttons">
+                <a href="{% url 'task_update' task.id %}" data-toggle="tooltip" title="Update">&#8635;</a>
+                <a href="{% url 'task_delete' task.id %}" data-toggle="tooltip" title="Delete">&#10008;</a>
+                <a href="{% url 'task_crossoff' task.id %}" data-toggle="tooltip" title="Complete">&#10003;</a>
+              </div>
+          </div>
+          <h2><a class="article-title" href="#">{{ task.title }}</a></h2>
+          <p class="article-content">{{ task.description }}</p>
+        </div>
+      </article>
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+{% endblock task_week %}
+
+{% block task_month %}
+<center><h3>This Month's Task List</h3></center> 
+  {% for task in task_list %}
+    {% if task.timeframe == 'mnth' %} 
+        {% if task.completed == 0 %}
+        <article class="media content-section">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="#">{{ request.user.username }}</a>
+              <small class="text-muted">{{ task.date }}</small>
+                <div class="buttons">
+                  <a href="{% url 'task_update' task.id %}" data-toggle="tooltip" title="Update">&#8635;</a>
+                  <a href="{% url 'task_delete' task.id %}" data-toggle="tooltip" title="Delete">&#10008;</a>
+                  <a href="{% url 'task_crossoff' task.id %}" data-toggle="tooltip" title="Complete">&#10003;</a>
+                </div>
+            </div>
+            <h2><a class="article-title" href="#">{{ task.title }}</a></h2>
+            <p class="article-content">{{ task.description }}</p>
+          </div>
+        </article>
+        {% endif %}
+    {% endif %}
+  {% endfor %}
+{% endblock task_month %}
+
+{% block task_SpareTime %}  
+<center><h3>Spare Time Task List</h3></center> 
+  {% for task in task_list %}
+    {% if task.timeframe == 'sp' %} 
+      {% if task.completed == 0 %}
+        <article class="media content-section">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="#">{{ request.user.username }}</a>
+              <small class="text-muted">{{ task.date }}</small>
+                <div class="buttons">
+                  <a href="{% url 'task_update' task.id %}" data-toggle="tooltip" title="Update">&#8635;</a>
+                  <a href="{% url 'task_delete' task.id %}" data-toggle="tooltip" title="Delete">&#10008;</a>
+                  <a href="{% url 'task_crossoff' task.id %}" data-toggle="tooltip" title="Complete">&#10003;</a>
+                </div>
+            </div>
+            <h2><a class="article-title" href="#">{{ task.title }}</a></h2>
+            <p class="article-content">{{ task.description }}</p>
+          </div>
+        </article>
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+{% endblock task_SpareTime %}
+
+
+
+{% block qoute %}
+  <br>
+  <br>
+  <br>
+  <br>
+  <center><h3>Out Of The Way</h3></center>
+  <div class="content-section">
+      <center><h5>Completed Tasks</h5></center>
+      <p class='text-muted'>
+          {% for task in task_list %}
+              {% if task.completed %}
+              <ul>
+                  <li>{{task.date}} - {{task.title}} 
+                      <a href="{% url 'task_uncross' task.id %}" data-toggle="tooltip" title="Undo">&#8634;</a>
+                      <a href="{% url 'task_delete' task.id %}" data-toggle="tooltip" title="Delete">&#10008;</a>
+                  </li>
+              </ul>
+              {% endif %}
+          {% endfor %}
+        </p>
+  </div>
+  <br>
+  <div class="content-section">
+    <center><h5>Dare Greatly</h5></center>
+    <p class='text-muted'>
+      <center>
+        “It is not the critic who counts; not the man who points out how the strong man stumbles, 
+        or where the doer of deeds could have done them better. 
+        <b>The credit belongs to the man who is actually in the arena, whose face is marred by dust and sweat and blood</b>, 
+        who strives valiantly; who errs and comes short again and again; because there is not effort without error and shortcomings; 
+        but who does actually strive to do the deed; who knows the great enthusiasm, the great devotion, who spends himself in a worthy cause, 
+        who at the best knows in the end the triumph of high achievement and who at the worst, if he fails, at least he fails while daring greatly. 
+        So that his place shall never be with those cold and timid souls who know neither victory nor defeat.” 
+        <br>
+        <i>-Theodore Roosevelt</i>
+      </center>
+    </p>
+  </div>
+{% endblock qoute %}
+
+

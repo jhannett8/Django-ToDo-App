@@ -1,0 +1,56 @@
+{% extends "Task_base.html" %} 
+    
+    
+    
+    
+    {% block uncrossed %}
+        <br>
+        <br>
+        <center><h3>Spare Time Tasks</h3></center> 
+        <br> 
+        {% for task in task_list %}
+          {% if task.completed == 0 %}
+                <article class="media content-section">
+                  <div class="media-body">
+                    <div class="article-metadata">
+                      <a class="mr-2" href="#">{{ request.user.username }}</a>
+                      <small class="text-muted">{{ task.date }}</small>
+                        <div class="buttons">
+                          <a href="{% url 'task_update' task.id %}" data-toggle="tooltip" title="Update">&#8635;</a>
+                          <a href="{% url 'task_delete' task.id %}" data-toggle="tooltip" title="Delete">&#10008;</a>
+                          <a href="{% url 'task_crossoff' task.id %}" data-toggle="tooltip" title="Complete">&#10003;</a>
+                        </div>
+                    </div>
+                    <h2><a class="article-title" href="#">{{ task.title }}</a></h2>
+                    <p class="article-content">{{ task.description }}</p>
+                  </div>
+                </article>
+            {% endif %}
+        {% endfor %}
+    {% endblock uncrossed %} 
+      
+      
+      
+      
+      
+      {% block crossed %}
+        <br>
+        <br>
+        <center><h3>Completed Task List</h3></center>
+        <br>
+        <div class="content-section">
+          <p class='text-muted'>
+            {% for task in task_list %}
+                {% if task.completed %}
+                <ul>
+                    <li>{{task.date}} - {{task.title}} 
+                        <a href="{% url 'task_uncross' task.id %}" data-toggle="tooltip" title="Undo">&#8634;</a>
+                        <a href="{% url 'task_delete' task.id %}" data-toggle="tooltip" title="Delete">&#10008;</a>
+                    </li>
+                </ul>
+                {% endif %}
+            {% endfor %}
+          </p>
+        </div>
+      {% endblock crossed %}
+              
